@@ -3,7 +3,7 @@
 
 int	main()
 {
-	const bigint	a(42);
+	const bigint	a(999999999999999);
 	bigint			b(21);
 	bigint			c;
 	bigint			d(1337);
@@ -26,7 +26,7 @@ int	main()
 	std::cout << "b++ = " << b++ << "\t| should be 22" << std::endl;
 
 	std::cout << "\n=== Shifts ======================" << std::endl;
-	std::cout << "(b << 10) + 42 = " << ((b << 10) + 42) << "\t| should be 230000000042" << std::endl;
+	std::cout << "(b << 10) + 42 = " << ((b << 10000) + 666) << "\t| should be 230000000042" << std::endl;
 	std::cout << "(d <<= 4) = " << (d <<= 4) << "\t\t| should be 13370000" << std::endl;
 	std::cout << "(d >>= 2) = " << (d >>= (const bigint)2) << "\t\t| should be 133700" << std::endl;
 	
