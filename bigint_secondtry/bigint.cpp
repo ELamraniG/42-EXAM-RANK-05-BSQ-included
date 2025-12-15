@@ -1,6 +1,6 @@
 #include "bigint.hpp"
 #include <string>
-
+#include "algorithm"
 bigint::bigint() : our_number("0")
 {
 	
@@ -36,8 +36,8 @@ bigint &bigint::operator+=(const bigint &cpy)
 	unsigned long res = 0;
 	std::string s1 = our_number;
 	std::string s2 = cpy.our_number;
-	s1.reserve();
-	s2.reserve();
+	std::reverse(s1.begin(),s1.end());
+	std::reverse(s2.begin(),s2.end());
 	unsigned long i = 0;
 	unsigned long j = 0;
 	std::string tmp;
@@ -57,6 +57,7 @@ bigint &bigint::operator+=(const bigint &cpy)
 		carry = res / 10;
 		tmp += res % 10 + '0';
 	}
+	std::reverse(tmp.begin(),tmp.end());
 	our_number = tmp;
 	return *this;
 }
@@ -75,9 +76,8 @@ bigint &bigint:: operator++()
 }
 bigint  bigint::operator++(int)
 {
-	bigint tmp(1);
-	*this += tmp;
-	tmp = *this;
+	bigint tmp(*this);
+	*this += bigint(1);
 	return tmp;
 }
 
@@ -128,7 +128,7 @@ bigint &bigint:: operator<<=(unsigned int n)
 {
 	if (our_number == "0")
 		return *this;
-	for (int i = 0;i < n;i++)
+	for (unsigned int i = 0;i < n;i++)
 		our_number += "0";
 	return *this;
 }
