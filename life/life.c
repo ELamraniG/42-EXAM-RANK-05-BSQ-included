@@ -82,11 +82,11 @@ void play_game(Game *game) {
 int main(int ac, char **av) {
   if (ac != 4)
     return 0;
+
   Game game;
   game.width = atoi(av[1]);
   game.height = atoi(av[2]);
   game.iterations = atoi(av[3]);
-
   init_game(&game);
   fill_game(&game);
 
