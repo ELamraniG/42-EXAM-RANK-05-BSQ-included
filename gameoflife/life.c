@@ -8,14 +8,6 @@ static void print_map(t_game game) {
   }
 }
 
-static void free_map(t_game *game) {
-  if (game->map) {
-    for (int i = 0; i < game->height; ++i)
-      if (game->map[i])
-        free(game->map[i]);
-    free(game->map);
-  }
-}
 
 static void fill_map(t_game *game) {
   char buffer;
@@ -60,8 +52,8 @@ static void fill_map(t_game *game) {
 static int count_neighbors(t_game game, int y, int x) {
   int count = 0;
 
-  for (int dy = -1; dy <= 1; dy++) {
-    for (int dx = -1; dx <= 1; dx++) {
+  for (int dy = 0; dy < 2; dy++) {
+    for (int dx = 0; dx < 2; dx++) {
       if (dx == 0 && dy == 0)
         continue;
 
