@@ -34,9 +34,8 @@ int read_map(FILE *file,t_data *data)
     if (data->empty == data->obstacle || data->empty == data->full || data->obstacle == data->full)
         return -1;
     
-    int line_size;
     char *line = NULL;
-    int read_size;
+    size_t read_size;
     int y = 0;
     while (y < data->y && getline(file,&read_size,&line) != -1)
     {
@@ -48,17 +47,17 @@ int read_map(FILE *file,t_data *data)
             return -1;
         }
         if (y == 0)
-            data->x = line_size;
+            data->x = read_size;
         else
         {
-            if (data->x != line_size)
+            if (data->x != read_size)
             {
                 free(line);
                 return -1;
 
             }
         }
-        for (int x = 0;x < line_size;x++)
+        for (int x = 0;x < read_size;x++)
         {
             if (line[x] == data->empty)
                 data->map[y][x] = EMPTY;
@@ -89,7 +88,6 @@ void process_map(FILE file)
     }
     find_bsq(&data);
     print_bsq(&data);
-
 }
 
 
