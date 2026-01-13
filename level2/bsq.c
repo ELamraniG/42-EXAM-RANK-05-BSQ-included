@@ -31,7 +31,7 @@ int min3(int a, int b, int c) {
     return small;
 }
 
-int read_map(FILE *file, t_data *data,char **errormsg) {
+int read_map(FILE *file, t_data *data) {
     if (fscanf(file, "%d %c %c %c\n", &data->y, &data->empty, &data->obstacle, &data->full) != 4 || data->y < 1)
         return 0;
     if (data->empty == data->obstacle || data->empty == data->full || data->obstacle == data->full)
@@ -117,8 +117,7 @@ void print_map(t_data *data) {
 
 void process_map(FILE *file) {
     t_data data = {0};
-    char *errormsg = NULL;
-    if (!read_map(file, &data,&errormsg)) {
+    if (!read_map(file, &data)) {
         fprintf(stderr, "map error error in map\n");
         return;
     }
@@ -133,7 +132,7 @@ int main(int ac, char **av) {
         for (int i = 1; i < ac; i++) {
             FILE *file = fopen(av[i], "r");
             if (!file) {
-                fprintf(stderr, "map error cant open file\n");
+                fprintf(stderr, "Error: can't open the file %s\n",av[i]);
                 continue;
             }
             process_map(file);
