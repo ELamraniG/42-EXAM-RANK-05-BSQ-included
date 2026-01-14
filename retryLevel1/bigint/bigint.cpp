@@ -86,9 +86,8 @@ bigint& bigint::operator>>=(int n)
     return *this;
 }
 
-
- bigint& bigint::operator>>=(const bigint &cpy)
- {
+bigint& bigint::operator>>=(const bigint &cpy)
+{
     int n = std::atol(cpy.our_number.c_str());
     if (our_number == "0")
         return *this;

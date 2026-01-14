@@ -49,7 +49,6 @@ int read_map(FILE *file, t_data *data) {
             free(line);
             return 0;
         }
-
         if (y == 0)
             data->x = read_len;
         else if (read_len != data->x) {
@@ -96,9 +95,9 @@ void find_bsq(t_data *data) {
     }
 
     // Fill the biggest square
-    for (int j = 0; j < data->bsq.size; j++)
-        for (int i = 0; i < data->bsq.size; i++)
-            data->map[data->bsq.y + j][data->bsq.x + i] = FULL;
+    for (int y = 0; y < data->bsq.size; y++)
+        for (int x = 0; x < data->bsq.size; x++)
+            data->map[data->bsq.y + y][data->bsq.x + x] = FULL;
 }
 
 void print_map(t_data *data) {
@@ -128,18 +127,14 @@ void process_map(FILE *file) {
 int main(int ac, char **av) {
     if (ac == 1) {
         process_map(stdin);
-    } else {
-        for (int i = 1; i < ac; i++) {
-            FILE *file = fopen(av[i], "r");
+    } else if (ac == 2){
+            FILE *file = fopen(av[1], "r");
             if (!file) {
-                fprintf(stderr, "Error: can't open the file %s\n",av[i]);
-                continue;
+                fprintf(stderr, "Error: can't open the file %s\n",av[1]);
+                return 1;
             }
             process_map(file);
             fclose(file);
-            if (i != ac - 1)
-                fputc('\n', stdout);
         }
-    }
     return 0;
 }
